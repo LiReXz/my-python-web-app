@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
     branches:
       - main
+      - develop
 
 jobs:
   build:
@@ -47,8 +49,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t myusername/my-python-web-app:${{ github.sha }} .
+          docker build -t josenavpoc/my-python-web-app:${{ github.sha }} .
 
       - name: Push Docker image
         run: |
-          docker push myusername/my-python-web-app:${{ github.sha }}
+          docker push josenavpoc/my-python-web-app:${{ github.sha }}

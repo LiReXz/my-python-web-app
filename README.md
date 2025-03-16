@@ -148,8 +148,16 @@ This setup ensures that your application is always up to date with every new com
   - Build a new Docker image.
   - Push it to Docker Hub.  
 
-- Since Kubernetes pulls the image from Docker Hub, you only need to restart the pod to apply the latest version:  
+- Since **both Docker and Kubernetes pull the image from Docker Hub**, you only need to restart the container or pod to apply the latest version:  
 
+  **For Docker:**
+  ```bash
+  docker stop my-python-app && docker rm my-python-app
+  docker pull myusername/my-python-web-app:latest
+  docker run -d --name my-python-app -p 5000:5000 myusername/my-python-web-app:latest
+  ```
+
+  **For Kubernetes:**
   ```bash
   kubectl rollout restart deployment python-web-app
   ```
