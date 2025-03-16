@@ -33,7 +33,8 @@ Before running or deploying this project, ensure that you have the following too
 
 - **Git**: Installed and configured.  
 - **Docker**: Installed and configured (required if deploying with Docker).  
-- **Kubernetes/Minikube**: Installed and configured (required if deploying on Kubernetes).  
+- **DockerHub**: Create a repository to upload the generated image.
+- **Kubernetes/Minikube**: Installed and configured (required if deploying on Kubernetes).
 
 ### 1. Clone the Repository
 
