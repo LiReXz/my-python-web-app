@@ -48,11 +48,25 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Read version from file
+        id: read_version
+        run: |
+          VERSION=$(cat version)  # Leer la versión desde el archivo
+          BRANCH=$(echo $GITHUB_REF | awk -F/ '{print $3}')  # Obtener el nombre de la rama
+
+          if [[ "$BRANCH" == "develop" ]]; then
+            TIMESTAMP=$(date +%Y%m%d%H%M%S)  # Generar un timestamp
+            VERSION="${VERSION}-SNAPSHOT-${TIMESTAMP}"
+          fi
+
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV  # Guardar la versión como variable de entorno
+
       - name: Build Docker image
         run: |
           docker build -t josenavpoc/my-python-web-app:latest .
-          docker build -t josenavpoc/my-python-web-app:${{ github.sha }} .
+          docker build -t josenavpoc/my-python-web-app:${{ env.VERSION }} .
 
       - name: Push Docker image
         run: |
-          docker push josenavpoc/my-python-web-app:${{ github.sha }}
+          docker build -t josenavpoc/my-python-web-app:latest .
+          docker push josenavpoc/my-python-web-app:${{ env.VERSION }}
