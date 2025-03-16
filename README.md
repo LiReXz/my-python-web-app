@@ -12,19 +12,26 @@ This project demonstrates the use of **Flask**, **Docker**, and **GitHub Actions
 ## Project Structure
 
 my-python-web-app/
-├── app.py # Flask application 
-├── requirements.txt # Dependencies for the app 
-├── Dockerfile # Instructions to build Docker image 
 ├── .github/ 
 │ └── workflows/ 
 │ └── ci-cd-pipeline.yml # GitHub Actions workflow 
-└── README.md # This file
-
-
+├── app.py # Flask application 
+├── Dockerfile # Instructions to build Docker image
+├── README.md # This file
+├── requirements.txt # Dependencies for the app 
+└── version # File used for version control
 
 ## Setup
 
 Follow the steps below to set up and replicate this project with **GitHub Actions** and **Docker**.
+
+### Prerequisites
+
+Before running or deploying this project, ensure that you have the following tools installed and properly configured:
+
+- **Git**: Installed and configured.  
+- **Docker**: Installed and configured (required if deploying with Docker).  
+- **Kubernetes/Minikube**: Installed and configured (required if deploying on Kubernetes).  
 
 ### 1. Clone the Repository
 
@@ -58,7 +65,7 @@ The **GitHub Actions workflow** will do the following automatically:
 #### How to Replicate the Workflow:
 
 1. **Configure GitHub Secrets**:
-   - Go to your GitHub repository’s **Settings** > **Secrets** > **New repository secret**.
+   - Go to your GitHub repository’s **Settings** > **Secrets and variables** > **Actions** > **New repository secret**.
    - Add the following secrets for Docker Hub authentication:
      - `DOCKER_USERNAME` - Your Docker Hub username.
      - `DOCKER_PASSWORD` - Your Docker Hub password.
@@ -66,12 +73,18 @@ The **GitHub Actions workflow** will do the following automatically:
 2. **Modify the Docker Hub Path**:
    - In the `.github/workflows/ci-cd-pipeline.yml` file, change the following line to specify the image path where it will be pushed:
      ```yaml
-     - name: Push Docker image to Docker Hub
-       run: |
-         docker tag my-python-web-app \$DOCKER_USERNAME/my-python-web-app:latest
-         docker push \$DOCKER_USERNAME/my-python-web-app:latest
+    - name: Build Docker image
+      run: |
+        docker build -t yourusername/my-python-web-app:latest .
+        docker build -t yourusername/my-python-web-app:${{ env.VERSION }} .
+
+    - name: Push Docker image
+      run: |
+        docker push yourusername/my-python-web-app:latest
+        docker push yourusername/my-python-web-app:${{ env.VERSION }}
      ```
 
+   - Replace `yourusername` with your Docker Hub username.
    - Replace `my-python-web-app` with your Docker Hub repository name, if different.
 
 ### 3. Deployment (POC)
@@ -123,7 +136,7 @@ spec:
 Apply the deployment using `kubectl`:
 
 ```bash
-kubectl apply -f deployment.yaml
+kubectl apply -f deployment-file-name.yaml
 ```
 
 Check the status of the pods:
@@ -142,12 +155,18 @@ You can now access your app through the LoadBalancer's external IP.
 
 ### CI/CD Deployment
 
-This setup ensures that your application is always up to date with every new commit.  
+This setup ensures that your application is always up to date with every new commit.  t
 
-- Every time you **push new changes** to the repository, the **GitHub Actions workflow** will automatically:  
-  - Build a new Docker image.
-  - Push it to Docker Hub.  
+Every time you **push new changes** to the repository, the **GitHub Actions workflow** will automatically:  
+- Build a new Docker image.  
+- Push it to Docker Hub.  
 
+**Version Control Enabled**
+- If pushing to the **develop** branch:  
+  - The image will be tagged as `VERSION-SNAPSHOT-TIMESTAMP` along with `latest`, allowing the container to always pull the most recent snapshot without changing the reference.  
+- If pushing to the **master** branch:  
+  - The image will be tagged with the **exact version** from the `version` file, along with `latest`, ensuring a stable release while keeping the latest reference available.  
+  
 - Since **both Docker and Kubernetes pull the image from Docker Hub**, you only need to restart the container or pod to apply the latest version:  
 
   **For Docker:**
