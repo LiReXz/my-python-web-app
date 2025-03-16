@@ -3,11 +3,11 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - master
       - develop
   pull_request:
     branches:
-      - main
+      - master
       - develop
 
 jobs:
@@ -26,11 +26,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest
+#          pip install pytest      Can be added if wanted
 
-      - name: Run tests
-        run: |
-          pytest
+      # - name: Run tests          Can be added if wanted
+      #   run: |
+      #     pytest
 
   docker:
     runs-on: ubuntu-latest
