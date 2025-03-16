@@ -50,6 +50,7 @@ jobs:
 
       - name: Build Docker image
         run: |
+          docker build -t josenavpoc/my-python-web-app:latest .
           docker build -t josenavpoc/my-python-web-app:${{ github.sha }} .
 
       - name: Push Docker image
