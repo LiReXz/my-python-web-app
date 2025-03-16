@@ -11,17 +11,17 @@ This project demonstrates the use of **Flask**, **Docker**, and **GitHub Actions
 
 ## Project Structure
 
-``
+```yaml
 my-python-web-app/
 ├── .github/ 
-│ └── workflows/ 
-│ └── ci-cd-pipeline.yml # GitHub Actions workflow 
-├── app.py # Flask application 
-├── Dockerfile # Instructions to build Docker image
-├── README.md # This file
-├── requirements.txt # Dependencies for the app 
-└── version # File used for version control
-``
+│   └── workflows/ 
+│     └── ci-cd-pipeline.yml     # GitHub Actions workflow 
+├── app.py                       # Flask application 
+├── Dockerfile                   # Instructions to build Docker image
+├── README.md                    # This file
+├── requirements.txt             # Dependencies for the app 
+└── version                      # File used for version control
+```
 
 ## Setup
 
