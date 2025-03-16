@@ -63,10 +63,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t yourusername/my-python-web-app:latest .
-          docker build -t yourusername/my-python-web-app:${{ env.VERSION }} .
+          docker build -t josenavpoc/my-python-web-app:latest .
+          docker build -t josenavpoc/my-python-web-app:${{ env.VERSION }} .
 
       - name: Push Docker image
         run: |
-          docker push yourusername/my-python-web-app:latest
-          docker push yourusername/my-python-web-app:${{ env.VERSION }}
+          docker push josenavpoc/my-python-web-app:latest
+          docker push josenavpoc/my-python-web-app:${{ env.VERSION }}
