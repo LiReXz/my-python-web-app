@@ -11,6 +11,7 @@ This project demonstrates the use of **Flask**, **Docker**, and **GitHub Actions
 
 ## Project Structure
 
+``
 my-python-web-app/
 ├── .github/ 
 │ └── workflows/ 
@@ -20,6 +21,7 @@ my-python-web-app/
 ├── README.md # This file
 ├── requirements.txt # Dependencies for the app 
 └── version # File used for version control
+``
 
 ## Setup
 
