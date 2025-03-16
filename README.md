@@ -75,7 +75,8 @@ The **GitHub Actions workflow** will do the following automatically:
    
 2. **Modify the Docker Hub Path**:
    - In the `.github/workflows/ci-cd-pipeline.yml` file, change the following line to specify the image path where it will be pushed:
-     ```yaml
+     
+   ```yaml
     - name: Build Docker image
       run: |
         docker build -t yourusername/my-python-web-app:latest .
@@ -85,7 +86,7 @@ The **GitHub Actions workflow** will do the following automatically:
       run: |
         docker push yourusername/my-python-web-app:latest
         docker push yourusername/my-python-web-app:${{ env.VERSION }}
-     ```
+   ```
 
    - Replace `yourusername` with your Docker Hub username.
    - Replace `my-python-web-app` with your Docker Hub repository name, if different.
