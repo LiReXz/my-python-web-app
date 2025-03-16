@@ -68,5 +68,5 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker build -t josenavpoc/my-python-web-app:latest .
+          docker push -t josenavpoc/my-python-web-app:latest .
           docker push josenavpoc/my-python-web-app:${{ env.VERSION }}
