@@ -152,10 +152,10 @@ kubectl get pods
 To expose your app via a service:
 
 ```bash
-kubectl expose deployment python-web-app --type=LoadBalancer --name=python-web-app-service
+kubectl expose deployment python-web-app --type=NodePort --name=python-web-app-service
 ```
 
-You can now access your app through the LoadBalancer's external IP.
+You can now access your app through the [K8s_IP]:[Nodeport_asigned].
 
 ### CI/CD Deployment
 
@@ -186,6 +186,6 @@ Every time you **push new changes** to the repository, the **GitHub Actions work
   ```
 
 You can see a **Proof of Concept (POC) video demo** explaining this process at the following link:  
-👉 **[POC Video: Deploying a Python App with CI/CD](https://www.youtube.com/watch?v=lirexz)**   
+👉 **[POC Video: Deploying a Python App with CI/CD](https://youtu.be/zv1weGxg_-U)**   
 
 This setup keeps your deployment **fully automated** and ensures that every new commit is reflected in the running application. 🚀
